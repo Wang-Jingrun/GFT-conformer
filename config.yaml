@@ -1,0 +1,50 @@
+gpu_num: 0 # 在指定标号的gpu上训练
+device: cuda # 此项不用修改
+
+train:
+  batch_size: 4
+  epochs: 1000
+  num_workers: 4
+
+# GFT
+n_f: 512 
+win_l: 512
+n_s: 128
+
+model:
+  kernel_num: (64, 64, 64, 64)
+
+# optim
+optimizer: AdamW
+learning_rate: 0.001
+weight_decay: 0   #regular
+
+# scheduler
+scheduler:
+  factor: 0.5
+  patience: 3
+  verbose: y
+
+# model path
+model_path: ./output/VoiceBank
+load_model:
+model_name: GFT-conformer
+
+# VoiceBank-DEMAND Corpus (VCTK)
+VCTK_dataset:
+  used: 1
+  path: /data0/VoiceBank+DEMAND
+  trainset: ./wavs_path/VoiceBank+DEMAND/trainset-shuffle.txt
+  testset: ./wavs_path/VoiceBank+DEMAND/testset.txt
+  wav_dur: 2
+
+# Deep Xi dataset
+DeepXi_dataset:
+  used:
+  path: /data0/deep_xi_dataset/
+  train_clean_files: train_clean_speech.txt
+  train_noise_files: train_noise.txt
+  validate_files: val_clean_speech.txt
+  test_files: test_clean_speech.txt
+  test_snrs: (-5, 0, 5, 10, 15)
+  wav_dur: 2
